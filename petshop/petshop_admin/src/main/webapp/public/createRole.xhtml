@@ -1,0 +1,57 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="title">Create User Page</ui:define>
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{adminBean.loadRoles()}" type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:messages globalOnly="true" errorStyle="color: red"
+			infoStyle="color: green" layout="table" />
+		<H1>Create Role</H1>
+
+		<h:form>
+			<h:panelGrid styleClass="createTable" columns="3" cellpadding="4"
+				cellspacing="0">
+
+				<h:outputLabel for="rolename">Role Name:</h:outputLabel>
+				<h:selectOneMenu id="rolename" value="#{adminBean.role.roleId}"
+					required="true" requiredMessage="RoleName is required">
+					<f:selectItem itemValue="1" itemLabel="Admin" />
+					<f:selectItem itemValue="2" itemLabel="User" />
+				</h:selectOneMenu>
+
+				<h:commandButton action="#{adminBean.createRole}"
+					value="Create Role" />
+			</h:panelGrid>
+
+			<h:dataTable id="role-table" class="role-table"
+				value="#{adminBean.roleList}" var="role" rules="all" cellpadding="4"
+				cellspacing="0">
+
+				<f:facet name="header">
+					<h:outputText value="Role List" />
+				</f:facet>
+
+				<h:column>
+					<h:outputText value="#{role.roleName}" />
+				</h:column>
+
+			</h:dataTable>
+
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="/public/home.xhtml">Main</h:link>
+			</h:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

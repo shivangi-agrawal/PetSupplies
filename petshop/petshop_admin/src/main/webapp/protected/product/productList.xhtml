@@ -1,0 +1,84 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{productBean.loadProducts}" type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="title">Product List Page</ui:define>
+
+	<ui:define name="content">
+		<h:messages errorStyle="color: red" infoStyle="color: green"
+			layout="table" />
+		<H1>Product List</H1>
+
+		<h:form>
+			<h:dataTable id="product-table" class="product-table"
+				value="#{productBean.productList}" var="product" rules="all"
+				cellpadding="4" cellspacing="0">
+
+				<f:facet name="header">
+					<h:outputText value="Product List" />
+				</f:facet>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Product Name" />
+					</f:facet>
+					<h:outputText value="#{product.productName}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Product Desc" />
+					</f:facet>
+					<h:outputText value="#{product.productDesc}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Amount" />
+					</f:facet>
+					<h:outputText value="#{product.amount}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Category Name" />
+					</f:facet>
+					<h:outputText value="#{product.category.categoryName}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Action" />
+					</f:facet>
+					<h:panelGroup class="action">
+						<h:commandLink value="Delete"
+							action="#{productBean.deleteProduct(product)}" />
+
+						<h:link outcome="viewProduct" value="View"
+							includeViewParams="true">
+							<f:param name="productId" value="#{product.productId}"></f:param>
+						</h:link>
+
+						<h:link outcome="editProduct" value="Edit"
+							includeViewParams="true">
+							<f:param name="productId" value="#{product.productId}"></f:param>
+						</h:link>
+					</h:panelGroup>
+				</h:column>
+			</h:dataTable>
+
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="/protected/common/main.xhtml">Home</h:link>
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

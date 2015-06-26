@@ -1,0 +1,57 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="title">Create User Page</ui:define>
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{adminBean.loadStatus()}" type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:messages globalOnly="true" errorStyle="color: red"
+			infoStyle="color: green" layout="table" />
+		<H1>Create Status</H1>
+
+		<h:form>
+			<h:panelGrid styleClass="createTable" columns="3" cellpadding="4"
+				cellspacing="0">
+
+				<h:outputLabel for="username">Status Name:</h:outputLabel>
+				<h:selectOneMenu value="#{adminBean.status.statusDesc}"
+					required="true" requiredMessage="StatusName is required">
+					<f:selectItem itemValue="initiated" itemLabel="Initiated" />
+					<f:selectItem itemValue="completed" itemLabel="Completed" />
+				</h:selectOneMenu>
+
+				<h:commandButton action="#{adminBean.createStatus}"
+					value="Create Status" />
+			</h:panelGrid>
+
+			<h:dataTable id="status-table" class="status-table"
+				value="#{adminBean.statusList}" var="status" rules="all"
+				cellpadding="4" cellspacing="0">
+
+				<f:facet name="header">
+					<h:outputText value="Status List" />
+				</f:facet>
+
+				<h:column>
+					<h:outputText value="#{status.statusDesc}" />
+				</h:column>
+
+			</h:dataTable>
+
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="/public/home.xhtml">Main</h:link>
+			</h:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

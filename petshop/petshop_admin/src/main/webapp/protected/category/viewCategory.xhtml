@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/template/template.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="categoryId"
+				value="#{categoryBean.category.categoryId}" />
+			<f:event listener="#{categoryBean.findCategory}" type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+
+		<h:messages errorStyle="color: red" infoStyle="color: green"
+			layout="table" />
+		<h1>Category Details</h1>
+
+		<h:form>
+			<h:panelGrid columns="2" rules="all" styleClass="viewTable"
+				columnClasses="column1, column2" rowClasses="oddRow, evenRow"
+				cellspacing="0" cellpadding="2">
+
+				<h:outputText value="Category Name:" />
+				<h:outputText value="#{categoryBean.category.categoryName}" />
+				<h:outputText value="Description:" />
+				<h:outputText value="#{categoryBean.category.categoryDesc}" />
+				<h:outputText value="Products:" />
+				<h:panelGroup>
+					<h:dataTable id="product-table" class="product-table"
+						style="display: block"
+						value="#{categoryBean.category.productses.toArray()}"
+						var="product" rules="all" cellpadding="4" cellspacing="0">
+
+						<h:column>
+							<h:link outcome="/protected/product/viewProduct.xhtml"
+								value="#{product.productName}" includeViewParams="true">
+								<f:param name="productId" value="#{product.productId}"></f:param>
+							</h:link>
+						</h:column>
+					</h:dataTable>
+				</h:panelGroup>
+			</h:panelGrid>
+
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="editCategory" value="Edit" includeViewParams="true">
+					<f:param name="categoryId"
+						value="#{categoryBean.category.categoryId}"></f:param>
+				</h:link>
+			</h:panelGrid>
+
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="/protected/common/main.xhtml">Home</h:link>
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

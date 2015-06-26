@@ -1,0 +1,62 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="title">Create Product Page</ui:define>
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{productBean.clearProduct}" type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:messages globalOnly="true" errorStyle="color: red"
+			infoStyle="color: green" layout="table" />
+		<H1>Create Product</H1>
+
+		<h:form>
+			<h:panelGrid styleClass="createTable" columns="3" cellpadding="4"
+				cellspacing="0">
+
+				<h:outputLabel for="productname">Product Name:</h:outputLabel>
+				<h:inputText id="productname" size="45"
+					value="#{productBean.product.productName}" required="true"
+					requiredMessage="Name is required" />
+				<h:message for="productname" style="color:red" />
+
+				<h:outputLabel for="desc">Product Description:</h:outputLabel>
+				<h:inputText id="desc" size="45"
+					value="#{productBean.product.productDesc}" required="true"
+					requiredMessage="desc is required" />
+				<h:message for="desc" style="color:red" />
+
+				<h:outputLabel for="amount">Amount:</h:outputLabel>
+				<h:inputText id="amount" size="45"
+					value="#{productBean.product.amount}" required="true"
+					requiredMessage="amount is required" />
+				<h:message for="amount" style="color:red" />
+
+				<h:outputLabel for="category">Product Category:</h:outputLabel>
+				<h:selectOneMenu value="#{productBean.product.category}"
+					converter="#{categoryConverter}">
+					<f:selectItem itemLabel="Select" />
+					<f:selectItems value="#{productBean.categoryList}" var="cat"
+						itemValue="#{cat}" itemLabel="#{cat.categoryName}" />
+				</h:selectOneMenu>
+				<h:message for="category" style="color:red" />
+
+				<h:commandButton action="#{productBean.createProduct}"
+					value="Create Product" />
+			</h:panelGrid>
+
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="/protected/common/main.xhtml">Home</h:link>
+			</h:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

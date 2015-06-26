@@ -1,0 +1,28 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="title">Category Management Page</ui:define>
+
+	<ui:define name="content">
+		<h:messages errorStyle="color: red" infoStyle="color: green"
+			layout="table" />
+		<H1>Manage Categories</H1>
+
+		<h:form>
+
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="createCategory" value="Create New Category" />
+				<h:link outcome="categoryList" value="View All Categories" />
+				<h:link outcome="searchCategory" value="Search Category" />
+			</h:panelGrid>
+
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="/protected/common/main.xhtml">Home</h:link>
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

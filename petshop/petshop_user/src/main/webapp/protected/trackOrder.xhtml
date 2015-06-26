@@ -1,0 +1,41 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="title">Track Your Order</ui:define>
+
+	<ui:define name="content">
+
+		<h:messages errorStyle="color: red" infoStyle="color: green"
+			layout="table" />
+		<H1>Select Order Number</H1>
+
+		<h:form id="myform">
+		
+			<h:panelGrid styleClass="createTable" columns="2" cellpadding="4"
+				cellspacing="0">
+				
+				<h:outputLabel>Order Number:</h:outputLabel>
+				<h:selectOneMenu value="#{trackOrderBean.orderDetail}"
+					converter="#{orderDetConverter}">
+					<f:selectItem itemLabel="Select" />
+					<f:selectItems value="#{trackOrderBean.orderDetList}" var="orderDet"
+						itemValue="#{orderDet}" itemLabel="#{orderDet.orderNo}" />
+				</h:selectOneMenu>
+				
+				
+				<h:commandButton action="#{trackOrderBean.orderStatus}"
+					value="Get Order Details" />
+			</h:panelGrid>
+		
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="/protected/main.xhtml">Home</h:link>
+			</h:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

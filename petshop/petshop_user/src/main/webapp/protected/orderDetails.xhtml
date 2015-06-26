@@ -1,0 +1,71 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">Order Details</ui:define>
+
+	<ui:define name="content">
+
+		<h:messages errorStyle="color: red" infoStyle="color: green"
+			layout="table" />
+		<H1>Order Details</H1>
+
+		<h:form id="myform">
+		
+			<h:panelGrid columns="2" styleClass="navTable">
+				<b>Order No:</b> <h:outputText value="#{trackOrderBean.orderDetail.orderNo}" />
+				<b>Status:</b> <h:outputText value="#{trackOrderBean.orderDetail.status}" />
+			</h:panelGrid>
+
+			<h:dataTable id="order-table" class="order-table"
+				value="#{trackOrderBean.orderDetail.orderses.toArray()}" var="order" rules="all"
+				cellpadding="4" cellspacing="0">
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Category Name" />
+					</f:facet>
+					<h:outputText value="#{order.product.category.categoryName}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Product Name" />
+					</f:facet>
+					<h:outputText value="#{order.product.productName}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Product Description" />
+					</f:facet>
+					<h:outputText value="#{order.product.productDesc}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Amount" />
+					</f:facet>
+					<h:outputText value="#{order.product.amount}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Quantity" />
+					</f:facet>
+					<h:outputText value="#{order.quantity}" />
+				</h:column>
+
+			</h:dataTable>
+			
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="/protected/main.xhtml">Home</h:link>
+			</h:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

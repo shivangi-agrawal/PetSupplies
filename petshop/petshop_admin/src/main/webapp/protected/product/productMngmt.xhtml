@@ -1,0 +1,28 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="title">Product Management Page</ui:define>
+
+	<ui:define name="content">
+		<h:messages errorStyle="color: red" infoStyle="color: green"
+			layout="table" />
+		<H1>Manage Products</H1>
+
+		<h:form>
+
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="createProduct" value="Create New Product" />
+				<h:link outcome="productList" value="View All Products" />
+				<h:link outcome="searchProduct" value="Search Product" />
+			</h:panelGrid>
+
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="/protected/common/main.xhtml">Home</h:link>
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

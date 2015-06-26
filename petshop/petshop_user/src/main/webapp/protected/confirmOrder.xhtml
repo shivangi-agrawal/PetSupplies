@@ -1,0 +1,85 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="title">Confirm Order</ui:define>
+
+	<ui:define name="content">
+
+		<h:messages errorStyle="color: red" infoStyle="color: green"
+			layout="table" />
+		<H1>Confirm Order</H1>
+		
+		<h:form id="myform">
+
+			
+			
+			<h:dataTable class="product-table"
+							 value="#{categoryBean.orderForm.prodList}"
+							var="prod" rules="all" cellpadding="4" cellspacing="0">
+							
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Category Name" />
+								</f:facet>
+								<h:outputText value="#{prod.categoryName}" />
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Product Name" />
+								</f:facet>
+								<h:outputText value="#{prod.productName}" />
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Product Description" />
+								</f:facet>
+								<h:outputText value="#{prod.productDesc}" />
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Amount" />
+								</f:facet>
+								<h:outputText value="#{prod.amount}" />
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Quantity" />
+								</f:facet>
+								<h:outputText value="#{prod.quantity}" />
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Total" />
+								</f:facet>
+								<h:outputText value="#{prod.total}" />
+							</h:column>
+
+						</h:dataTable>
+
+
+			<h:outputText value="Total Amount:" />
+			<h:outputText id="model" value="#{categoryBean.orderForm.totalAmt}" />
+
+			<h:panelGrid styleClass="navTable">
+				<h:commandButton action="#{orderBean.createOrder(categoryBean.orderForm)}" value="Confirm" />
+				<h:commandButton action="#{categoryBean.editOrder()}"
+					value="Edit Order" />
+			</h:panelGrid>
+			
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="/protected/main.xhtml">Home</h:link>
+			</h:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,35 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="title">Search Result Page</ui:define>
+
+	<ui:define name="content">
+		<h:messages errorStyle="color: red" infoStyle="color: green"
+			layout="table" />
+		<H1>Search result</H1>
+
+		<h:form>
+			<h:panelGrid columns="2" rules="all" styleClass="viewTable"
+				columnClasses="column1, column2" rowClasses="oddRow, evenRow"
+				cellspacing="0" cellpadding="2">
+
+				<h:outputText value="Product Name:" />
+				<h:outputText value="#{productBean.product.productName}" />
+				<h:outputText value="Description:" />
+				<h:outputText value="#{productBean.product.productDesc}" />
+				<h:outputText value="Amount:" />
+				<h:outputText value="#{productBean.product.amount}" />
+				<h:outputText value="Category:" />
+				<h:outputText value="#{productBean.product.category.categoryName}" />
+			</h:panelGrid>
+
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="/protected/common/main.xhtml">Home</h:link>
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

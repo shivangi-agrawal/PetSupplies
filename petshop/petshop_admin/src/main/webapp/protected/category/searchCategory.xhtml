@@ -1,0 +1,39 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="title">search Category Page</ui:define>
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{categoryBean.clearCategory}"
+				type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:messages globalOnly="true" errorStyle="color: red"
+			infoStyle="color: green" layout="table" />
+		<H1>Search Category</H1>
+
+		<h:form>
+			<h:panelGrid styleClass="createTable" columns="2" cellpadding="4"
+				cellspacing="0">
+
+				<h:outputLabel for="categoryname">Category Name:</h:outputLabel>
+				<h:inputText id="categoryname" size="45"
+					value="#{categoryBean.category.categoryName}" required="true"
+					requiredMessage="Category Name is required" />
+
+				<h:commandButton action="#{categoryBean.searchCategory}"
+					value="Search Category" />
+			</h:panelGrid>
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="/protected/common/main.xhtml">Home</h:link>
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/template/template.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="productId"
+				value="#{productBean.product.productId}" />
+			<f:event listener="#{productBean.findProduct}" type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:messages errorStyle="color: red" infoStyle="color: green"
+			layout="table" />
+		<h1>Edit Product</h1>
+
+		<h:form>
+			<h:panelGrid styleClass="editTable" columns="2" cellpadding="4"
+				cellspacing="0">
+
+				<h:outputLabel value="Product Name" id="productName" />
+				<h:inputText value="#{productBean.product.productName}" />
+
+				<h:outputLabel value="Product Desc" id="productDesc" />
+				<h:inputText value="#{productBean.product.productDesc}" />
+
+				<h:outputLabel value="Amount" id="amount" />
+				<h:inputText value="#{productBean.product.amount}" />
+
+				<h:outputLabel value="Category" id="category" />
+				<h:selectOneMenu value="#{productBean.product.category}"
+					converter="#{categoryConverter}">
+					<f:selectItems value="#{productBean.categoryList}" var="cat"
+						itemValue="#{cat}" itemLabel="#{cat.categoryName}" />
+				</h:selectOneMenu>
+
+				<h:commandButton action="#{productBean.updateProduct}"
+					value="Save Product" />
+			</h:panelGrid>
+
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="viewProduct" value="View Details"
+					includeViewParams="true">
+					<f:param name="productId" value="#{productBean.product.productId}"></f:param>
+				</h:link>
+			</h:panelGrid>
+
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="/protected/common/main.xhtml">Home</h:link>
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

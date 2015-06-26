@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/template/template.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{userBean.loadUser}" type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:messages errorStyle="color: red" infoStyle="color: green"
+			layout="table" />
+		<h1>Update Profile</h1>
+
+		<h:form>
+			<h:panelGrid styleClass="editTable" columns="2" cellpadding="4"
+				cellspacing="0">
+				<h:outputLabel value="User Name" id="userid" />
+				<h:inputText value="#{userBean.user.userId}" />
+				<h:outputLabel value="Password" id="password" />
+				<h:inputSecret value="#{userBean.user.password}" />
+				<h:outputLabel value="First Name" id="firstName" />
+				<h:inputText value="#{userBean.user.firstName}" />
+				<h:outputLabel value="Last Name" id="lastName" />
+				<h:inputText value="#{userBean.user.lastName}" />
+				<h:outputLabel value="Email Id" id="emailId" />
+				<h:inputText value="#{userBean.user.emailId}" />
+				<h:outputLabel value="Phone Number" id="phoneNumber" />
+				<h:inputText value="#{userBean.user.phoneNumber}" />
+				<h:outputLabel value="Address" id="address" />
+				<h:inputText value="#{userBean.user.address}" />
+
+				<h:commandButton action="#{userBean.updateUser}"
+					value="Save Profile" />
+			</h:panelGrid>
+
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="/protected/main.xhtml">Home</h:link>
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<div>
+		<h3>Pet Shop Application</h3>
+		<p>
+			<h:outputLabel
+				value="Welcome #{loggedInUser.firstName} #{loggedInUser.lastName} !"
+				rendered="#{!empty loggedInUser}" />
+		</p>
+		<p>
+			<h:outputLabel value="Welcome Guest !"
+				rendered="#{empty loggedInUser}" />
+		</p>
+	</div>
+</ui:composition>

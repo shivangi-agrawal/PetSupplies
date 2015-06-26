@@ -1,0 +1,90 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{categoryBean.loadCategories}"
+				type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="title">Category List Page</ui:define>
+
+	<ui:define name="content">
+		<h:messages errorStyle="color: red" infoStyle="color: green"
+			layout="table" />
+		<H1>Category List</H1>
+
+		<h:form>
+			<h:dataTable id="category-table" class="category-table"
+				value="#{categoryBean.categoryList}" var="category" rules="all"
+				cellpadding="4" cellspacing="0">
+
+				<f:facet name="header">
+					<h:outputText value="Category List" />
+				</f:facet>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Category Name" />
+					</f:facet>
+					<h:outputText value="#{category.categoryName}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Category Desc" />
+					</f:facet>
+					<h:outputText value="#{category.categoryDesc}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Products" />
+					</f:facet>
+					<h:panelGroup>
+						<h:dataTable id="product-table" class="product-table"
+							style="display: block" value="#{category.productses.toArray()}"
+							var="product" rules="all" cellpadding="4" cellspacing="0">
+
+							<h:column>
+								<h:link outcome="/protected/product/viewProduct.xhtml"
+									value="#{product.productName}" includeViewParams="true">
+									<f:param name="productId" value="#{product.productId}"></f:param>
+								</h:link>
+							</h:column>
+						</h:dataTable>
+					</h:panelGroup>
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Action" />
+					</f:facet>
+					<h:panelGroup class="action">
+						<h:commandLink value="Delete"
+							action="#{categoryBean.deleteCategory(category)}" />
+
+						<h:link outcome="viewCategory" value="View"
+							includeViewParams="true">
+							<f:param name="categoryId" value="#{category.categoryId}"></f:param>
+						</h:link>
+
+						<h:link outcome="editCategory" value="Edit"
+							includeViewParams="true">
+							<f:param name="categoryId" value="#{category.categoryId}"></f:param>
+						</h:link>
+					</h:panelGroup>
+				</h:column>
+			</h:dataTable>
+
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="/protected/common/main.xhtml">Home</h:link>
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

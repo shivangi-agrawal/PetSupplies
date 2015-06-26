@@ -1,0 +1,98 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{categoryBean.loadCategories}"
+				type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="title">Browse Products</ui:define>
+
+	<ui:define name="content">
+
+		<h:messages errorStyle="color: red" infoStyle="color: green"
+			layout="table" />
+		<H1>Select Product</H1>
+		
+		<h:form id="myform">
+
+			<h:dataTable id="category-table" class="category-table"
+				value="#{categoryBean.orderForm.catList}" var="category" rules="all"
+				cellpadding="4" cellspacing="0">
+				<h:column>
+					<br/>
+						<p><h:link value="#{category.categoryName}"  />
+						
+					
+						<h:dataTable id="prodSet" class="product-table"
+							 value="#{category.prodSet}"
+							var="product" rules="all" cellpadding="4" cellspacing="0">
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Product Name" />
+								</f:facet>
+								<h:link value="#{product.productName}" />
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Product Description" />
+								</f:facet>
+								<h:outputText value="#{product.productDesc}" />
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Amount" />
+								</f:facet>
+								<h:outputText value="#{product.amount}" />
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Quantity" />
+								</f:facet>
+								<h:inputText value="#{product.quantity}" >
+									<f:ajax execute="@form" listener="#{categoryBean.updateAmount()}"
+										render=":myform:model" />
+								</h:inputText>
+							</h:column>
+
+						</h:dataTable></p>
+				</h:column>
+			</h:dataTable>
+
+
+			<h:outputText value="Total Amount:" />
+			<h:outputText id="model" value="#{categoryBean.orderForm.totalAmt}" />
+
+			<h:panelGrid styleClass="navTable" rendered="#{!empty loggedInUser}">
+				<h:commandButton action="#{categoryBean.placeOrder()}"
+					value="Place Order" />
+			</h:panelGrid>
+			
+			<h:panelGrid styleClass="navTable" rendered="#{empty loggedInUser}">
+				<h:commandButton action="#{loginBean.loginMsg}" value="Place Order" />
+			</h:panelGrid>
+			
+			<h:panelGrid styleClass="navTable" rendered="#{!empty loggedInUser}">
+				<h:link outcome="/protected/main.xhtml">Home</h:link>
+			</h:panelGrid>
+
+			<h:panelGrid styleClass="navTable" rendered="#{empty loggedInUser}">
+				<h:link outcome="/public/login.xhtml">Login</h:link>
+				<h:link outcome="/public/registerUser.xhtml">Sign Up</h:link>
+			</h:panelGrid>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

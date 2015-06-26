@@ -1,0 +1,75 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{userBean.loadUsers}" type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="title">User List Page</ui:define>
+
+	<ui:define name="content">
+		<h:messages errorStyle="color: red" infoStyle="color: green"
+			layout="table" />
+		<H1>User List</H1>
+
+		<h:form>
+			<h:dataTable id="user-table" class="user-table"
+				value="#{userBean.userList}" var="user" rules="all" cellpadding="4"
+				cellspacing="0">
+
+				<f:facet name="header">
+					<h:outputText value="User List" />
+				</f:facet>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="User Id" />
+					</f:facet>
+					<h:outputText value="#{user.userId}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="User Name" />
+					</f:facet>
+					<h:outputText value="#{user.address}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Password" />
+					</f:facet>
+					<h:outputText value="#{user.password}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Action" />
+					</f:facet>
+					<h:panelGroup class="action">
+						<h:commandLink value="Delete"
+							action="#{userBean.deleteUser(user)}" />
+
+						<h:link outcome="viewUser" value="View" includeViewParams="true">
+							<f:param name="id" value="#{user.id}"></f:param>
+						</h:link>
+
+						<h:link outcome="editUser" value="Edit" includeViewParams="true">
+							<f:param name="id" value="#{user.id}"></f:param>
+						</h:link>
+					</h:panelGroup>
+				</h:column>
+			</h:dataTable>
+
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="/protected/common/main.xhtml">Home</h:link>
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

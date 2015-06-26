@@ -1,0 +1,59 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="title">search User Page</ui:define>
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{userBean.clearUser}" type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:messages globalOnly="true" errorStyle="color: red"
+			infoStyle="color: green" layout="table" />
+		<H1>Search User</H1>
+
+		<h:form>
+			<h:panelGrid styleClass="createTable" columns="2" cellpadding="4"
+				cellspacing="0">
+
+				<h:outputLabel for="username">User Name:</h:outputLabel>
+				<h:inputText id="username" size="45" value="#{userBean.user.userId}" />
+
+
+				<h:outputLabel for="firstName">First Name:</h:outputLabel>
+				<h:inputText id="firstName" size="45"
+					value="#{userBean.user.firstName}" />
+
+
+				<h:outputLabel for="lastName">Last Name:</h:outputLabel>
+				<h:inputText id="lastName" size="45"
+					value="#{userBean.user.lastName}" />
+
+
+				<h:outputLabel for="address">Address:</h:outputLabel>
+				<h:inputText id="address" size="45" value="#{userBean.user.address}" />
+
+
+				<h:outputLabel for="emailId">Email ID:</h:outputLabel>
+				<h:inputText id="emailId" size="45" value="#{userBean.user.emailId}" />
+
+
+				<h:outputLabel for="phoneNumber">Phone Number:</h:outputLabel>
+				<h:inputText id="phoneNumber" size="45"
+					value="#{userBean.user.phoneNumber}" />
+
+
+				<h:commandButton action="#{userBean.searchUser}" value="Search User" />
+			</h:panelGrid>
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="/protected/common/main.xhtml">Home</h:link>
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

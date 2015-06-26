@@ -1,0 +1,38 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="title">search Product Page</ui:define>
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{productBean.clearProduct}" type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:messages globalOnly="true" errorStyle="color: red"
+			infoStyle="color: green" layout="table" />
+		<H1>Search Product</H1>
+
+		<h:form>
+			<h:panelGrid styleClass="createTable" columns="2" cellpadding="4"
+				cellspacing="0">
+
+				<h:outputLabel for="productname">Product Name:</h:outputLabel>
+				<h:inputText id="productname" size="45"
+					value="#{productBean.product.productName}" required="true"
+					requiredMessage="Product Name is required" />
+
+				<h:commandButton action="#{productBean.searchProducts}"
+					value="Search Product" />
+			</h:panelGrid>
+			<h:panelGrid styleClass="navTable">
+				<h:link outcome="/protected/common/main.xhtml">Home</h:link>
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
